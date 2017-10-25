@@ -29,29 +29,57 @@ public partial class PacienteAvaliarConsulta : System.Web.UI.Page
             Response.Redirect("~/Login");
         }
 
-        SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
-        SqlCommand comando = new SqlCommand("select max(c.idConsulta), c.dataInicio, m.nome from pp3_Consulta c, pp3_Medico m where c.idPaciente = @PACIENTE and c.idMedico = m.idMedico", conexao);
-        comando.Parameters.AddWithValue("@PACIENTE", Session["ID"]);
-
-        conexao.Open();
-        SqlDataReader leitor = comando.ExecuteReader();
-        if (leitor.Read())
+        try
         {
-            Session["IDConsulta"] = leitor.GetInt32(0);
-            lblDia.Text = leitor.GetDateTime(1).ToString("dd/mm/yyyy");
-            lblMedico.Text = leitor.GetString(2);
+            SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
+            SqlCommand comando = new SqlCommand("select max(c.idConsulta), c.dataInicio, m.nome from pp3_Consulta c, pp3_Medico m where c.idPaciente = @PACIENTE and c.idMedico = m.idMedico", conexao);
+            comando.Parameters.AddWithValue("@PACIENTE", Session["ID"]);
+
+            conexao.Open();
+            SqlDataReader leitor = comando.ExecuteReader();
+            if (leitor.Read())
+            {
+                Session["IDConsulta"] = leitor.GetInt32(0);
+                lblDia.Text = leitor.GetDateTime(1).ToString("dd/mm/yyyy");
+                lblMedico.Text = leitor.GetString(2);
+            }
+
+            comando = new SqlCommand("select count(idAvaliacao) from pp3_Consulta where idConsulta = @CONSULTA and idAvaliacao = null", conexao);
+            int avaliada = (int)comando.ExecuteScalar();
+            if (avaliada > 0)
+            {
+                lblMensagem.Visible = true;
+                lblMensagem.Text = "A última consulta já foi avaliada.";
+                pnlAvaliacao.Visible = false;
+            }
+            conexao.Close();
         }
-        conexao.Close();
+        catch (Exception ex)
+        {
+            lblMensagem.Visible = true;
+            pnlAvaliacao.Visible = false;
+            lblMensagem.Text = ex.Message;
+        }
     }
 
     protected void btnAvaliar_Click(object sender, EventArgs e)
     {
-        SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
-        SqlCommand comando = new SqlCommand("exec pp3_sp_InserirAvaliacao", conexao);
-        comando.Parameters.AddWithValue("@ID", Session["IDConsulta"]);
-        comando.Parameters.AddWithValue("@NOTA", txtNota.Text);
-        comando.Parameters.AddWithValue("@OBS", txtObs.Text);
-        conexao.Open();
-        
+        try
+        {
+            SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
+            SqlCommand comando = new SqlCommand("exec pp3_sp_InserirAvaliacao", conexao);
+            comando.Parameters.AddWithValue("@ID", Session["IDConsulta"]);
+            comando.Parameters.AddWithValue("@NOTA", txtNota.Text);
+            comando.Parameters.AddWithValue("@OBS", txtObs.Text);
+            conexao.Open();
+            comando.ExecuteNonQuery();
+            conexao.Close();
+            Session.Remove("IDConsulta");
+        }
+        catch (Exception ex)
+        {
+            lblMensagem.Visible = true;
+            lblMensagem.Text = ex.Message;
+        }
     }
 }
