@@ -14,7 +14,7 @@
 		<p>
 			Como você avaliaria a qualidade da consulta com um valor de 1 a 10:</p>
 		<p>
-			<asp:TextBox ID="txtNota" runat="server" TextMode="Number" OnTextChanged="txtNota_TextChanged"></asp:TextBox>
+			<asp:TextBox ID="txtNota" runat="server" TextMode="Number"></asp:TextBox>
 		</p>
 		<p>
 			Coloque aqui quaisquer observações acerca da consulta que você tiver:</p>

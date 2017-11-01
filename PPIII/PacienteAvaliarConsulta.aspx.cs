@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
 using System.Data.SqlClient;
+using System.Data;
 
 public partial class PacienteAvaliarConsulta : System.Web.UI.Page
 {
@@ -28,30 +29,36 @@ public partial class PacienteAvaliarConsulta : System.Web.UI.Page
         {
             Response.Redirect("~/Login");
         }
-
+        
         try
         {
             SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
-            SqlCommand comando = new SqlCommand("select max(c.idConsulta), c.dataInicio, m.nome from pp3_Consulta c, pp3_Medico m where c.idPaciente = @PACIENTE and c.idMedico = m.idMedico", conexao);
+            SqlCommand comando = new SqlCommand("pp3_sp_UltimaConsulta", conexao);
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
             comando.Parameters.AddWithValue("@PACIENTE", Session["ID"]);
+            comando.Parameters.Add("@CONSULTA", SqlDbType.Int);
+            comando.Parameters.Add("@DATAINICIO", SqlDbType.SmallDateTime);
+            comando.Parameters.Add("@NOME", SqlDbType.VarChar, 50);
+            comando.Parameters["@CONSULTA"].Direction = ParameterDirection.Output;
+            comando.Parameters["@DATAINICIO"].Direction = ParameterDirection.Output;
+            comando.Parameters["@NOME"].Direction = ParameterDirection.Output;
 
             conexao.Open();
-            SqlDataReader leitor = comando.ExecuteReader();
-            if (leitor.Read())
-            {
-                Session["IDConsulta"] = leitor.GetInt32(0);
-                lblDia.Text = leitor.GetDateTime(1).ToString("dd/mm/yyyy");
-                lblMedico.Text = leitor.GetString(2);
-            }
+            comando.ExecuteNonQuery();
+            Session["IDConsulta"] = (int)comando.Parameters["@CONSULTA"].Value;
+            lblDia.Text = ((DateTime)comando.Parameters["@DATAINICIO"].Value).ToString("dd/MM");
+            lblMedico.Text = (string)comando.Parameters["@NOME"].Value;
 
-            comando = new SqlCommand("select count(idAvaliacao) from pp3_Consulta where idConsulta = @CONSULTA and idAvaliacao = null", conexao);
+            comando = new SqlCommand("select count (*) from pp3_Consulta where idConsulta = @CONSULTA and idAvaliacao IS NULL", conexao);
+            comando.Parameters.AddWithValue("@CONSULTA", Session["IDConsulta"]);
             int avaliada = (int)comando.ExecuteScalar();
-            if (avaliada > 0)
+            if (avaliada <= 0)
             {
                 lblMensagem.Visible = true;
-                lblMensagem.Text = "A última consulta já foi avaliada.";
+                lblMensagem.Text = "A última consulta já foi avaliada. <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a>";
                 pnlAvaliacao.Visible = false;
             }
+            txtNota.Text = "1";
             conexao.Close();
         }
         catch (Exception ex)
@@ -67,14 +74,17 @@ public partial class PacienteAvaliarConsulta : System.Web.UI.Page
         try
         {
             SqlConnection conexao = new SqlConnection(WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString);
-            SqlCommand comando = new SqlCommand("exec pp3_sp_InserirAvaliacao", conexao);
-            comando.Parameters.AddWithValue("@ID", Session["IDConsulta"]);
-            comando.Parameters.AddWithValue("@NOTA", txtNota.Text);
+            SqlCommand comando = new SqlCommand("exec pp3_sp_InserirAvaliacao @CONSULTA, @NOTA, @OBS", conexao);
+            comando.Parameters.AddWithValue("@CONSULTA", Session["IDConsulta"]);
+            comando.Parameters.AddWithValue("@NOTA", Convert.ToInt32(txtNota.Text));
             comando.Parameters.AddWithValue("@OBS", txtObs.Text);
             conexao.Open();
             comando.ExecuteNonQuery();
             conexao.Close();
             Session.Remove("IDConsulta");
+            lblMensagem.Visible = true;
+            lblMensagem.Text = "Obrigado pela avaliação! <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a> ";
+            pnlAvaliacao.Visible = false;
         }
         catch (Exception ex)
         {
