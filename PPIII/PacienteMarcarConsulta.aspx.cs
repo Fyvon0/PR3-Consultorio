@@ -48,7 +48,7 @@ public partial class PacienteMarcarConsulta : System.Web.UI.Page
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.AddWithValue("@PACIENTE", Session["ID"].ToString());
             comando.Parameters.AddWithValue("@MEDICO", ddlMedico.SelectedValue);
-            DateTime horario = DateTime.ParseExact(txtData.Text + " " + txtHorario.Text, "yyyy-MM-dd hh:mm",
+            DateTime horario = DateTime.ParseExact(txtData.Text + " " + txtHorario.Text, "yyyy-MM-dd HH:mm",
                                                   System.Globalization.CultureInfo.InvariantCulture);
             comando.Parameters.AddWithValue("@INICIO", horario);
             horario = horario.AddMinutes(Convert.ToDouble(ddlDuracao.SelectedValue));
