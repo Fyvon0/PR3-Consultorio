@@ -6,7 +6,7 @@
             <%# Eval("Text") %>
         </DynamicItemTemplate>
         <Items>
-            <asp:MenuItem Text="Relatar Consulta" Value="Relatar Consulta"></asp:MenuItem>
+            <asp:MenuItem Text="Relatar Consulta" Value="Relatar Consulta" NavigateUrl="~/MedicoRelatarConsulta.aspx"></asp:MenuItem>
             <asp:MenuItem Text="Ver Consultas Marcadas" Value="Ver Consultas Marcadas"></asp:MenuItem>
         </Items>
         <StaticMenuItemStyle HorizontalPadding="10px" />

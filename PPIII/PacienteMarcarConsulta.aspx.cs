@@ -63,7 +63,7 @@ public partial class PacienteMarcarConsulta : System.Web.UI.Page
                 return;
             }
             else
-                lblMensagem.Text = "Consulta cadastrada com sucesso";
+                lblMensagem.Text = "Consulta cadastrada com sucesso. <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a>";
         }
         catch (Exception ex)
         {
