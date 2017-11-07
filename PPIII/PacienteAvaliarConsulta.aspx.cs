@@ -39,26 +39,37 @@ public partial class PacienteAvaliarConsulta : System.Web.UI.Page
             comando.Parameters.Add("@CONSULTA", SqlDbType.Int);
             comando.Parameters.Add("@DATAINICIO", SqlDbType.SmallDateTime);
             comando.Parameters.Add("@NOME", SqlDbType.VarChar, 50);
+            comando.Parameters.Add("@SUCESSO", SqlDbType.Bit);
             comando.Parameters["@CONSULTA"].Direction = ParameterDirection.Output;
             comando.Parameters["@DATAINICIO"].Direction = ParameterDirection.Output;
             comando.Parameters["@NOME"].Direction = ParameterDirection.Output;
+            comando.Parameters["@SUCESSO"].Direction = ParameterDirection.Output;
 
             conexao.Open();
             comando.ExecuteNonQuery();
-            Session["IDConsulta"] = (int)comando.Parameters["@CONSULTA"].Value;
-            lblDia.Text = ((DateTime)comando.Parameters["@DATAINICIO"].Value).ToString("dd/MM");
-            lblMedico.Text = (string)comando.Parameters["@NOME"].Value;
+            if (Convert.ToBoolean(comando.Parameters["@SUCESSO"].Value))
+            {
+                Session["IDConsulta"] = (int)comando.Parameters["@CONSULTA"].Value;
+                lblDia.Text = ((DateTime)comando.Parameters["@DATAINICIO"].Value).ToString("dd/MM");
+                lblMedico.Text = (string)comando.Parameters["@NOME"].Value;
 
-            comando = new SqlCommand("select count (*) from pp3_Consulta where idConsulta = @CONSULTA and idAvaliacao IS NULL", conexao);
-            comando.Parameters.AddWithValue("@CONSULTA", Session["IDConsulta"]);
-            int avaliada = (int)comando.ExecuteScalar();
-            if (avaliada <= 0)
+                comando = new SqlCommand("select count (*) from pp3_Consulta where idConsulta = @CONSULTA and idAvaliacao IS NULL", conexao);
+                comando.Parameters.AddWithValue("@CONSULTA", Session["IDConsulta"]);
+                int avaliada = (int)comando.ExecuteScalar();
+                if (avaliada <= 0)
+                {
+                    lblMensagem.Visible = true;
+                    lblMensagem.Text = "A última consulta já foi avaliada. <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a>";
+                    pnlAvaliacao.Visible = false;
+                }
+                txtNota.Text = "1";
+            }
+            else
             {
                 lblMensagem.Visible = true;
-                lblMensagem.Text = "A última consulta já foi avaliada. <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a>";
+                lblMensagem.Text = "Você ainda não realizou nenhuma consulta. <a href = 'Paciente.aspx'>Clique aqui para voltar para  Home </a>";
                 pnlAvaliacao.Visible = false;
             }
-            txtNota.Text = "1";
             conexao.Close();
         }
         catch (Exception ex)

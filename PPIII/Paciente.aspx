@@ -1,12 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Paciente.aspx.cs" Inherits="Paciente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <asp:Menu ID="Menu2" runat="server" StaticSubMenuIndent="16px" Orientation="Horizontal" DynamicHorizontalOffset="10" RenderingMode="List">
+	<asp:Menu ID="Menu2" runat="server" StaticSubMenuIndent="16px" Orientation="Horizontal" DynamicHorizontalOffset="10" RenderingMode="List">
         <DynamicItemTemplate>
             <%# Eval("Text") %>
         </DynamicItemTemplate>
         <Items>
             <asp:MenuItem Text="Marcar Consulta" Value="Marcar Consulta" NavigateUrl="~/PacienteMarcarConsulta.aspx"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/PacienteCancelarConsulta.aspx" Text="Cancelar Consulta" Value="Cancelar Consulta"></asp:MenuItem>
             <asp:MenuItem Text="Avaliar Última Consulta" Value="Avaliar Última Consulta" NavigateUrl="~/PacienteAvaliarConsulta.aspx"></asp:MenuItem>
         </Items>
         <StaticMenuItemStyle HorizontalPadding="10px" />
