@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -55,6 +56,14 @@ public partial class VerConsultasSec : System.Web.UI.Page
 
                 conexao.Close();
 
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    if (GridView1.Rows[i].Cells[4].Text == "CANCELADA")
+                    {
+                        GridView1.Rows[i].BackColor = Color.Red;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -84,6 +93,14 @@ public partial class VerConsultasSec : System.Web.UI.Page
 
 
                 conexao.Close();
+
+                for (int i = 0; i < GridView1.Rows.Count; i++)
+                {
+                    if (GridView1.Rows[i].Cells[4].Text == "CANCELADA")
+                    {
+                        GridView1.Rows[i].BackColor = Color.Red;
+                    }
+                }
 
             }
             catch (Exception ex)
