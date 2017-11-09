@@ -16,6 +16,7 @@
             <asp:MenuItem Text="Cadastrar Especialidade Médica" Value="2" NavigateUrl="~/CadastrarEspecialidade.aspx"></asp:MenuItem>
             <asp:MenuItem Text="Cadastrar Secretária" Value="3" NavigateUrl="~/CadastrarSecretaria.aspx"></asp:MenuItem>
             <asp:MenuItem Text="Ver Consultas" Value="Ver Consultas" NavigateUrl="~/VerConsultasSec.aspx"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/relatoriocerto.aspx" Text="Relatórios de Medição" Value="Relatórios de Medição"></asp:MenuItem>
         </Items>
     </asp:Menu>
 </asp:Content>

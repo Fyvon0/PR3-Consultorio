@@ -11,9 +11,20 @@ using System.Web.UI.WebControls;
 
 public partial class VerConsultasPac : System.Web.UI.Page
 {
+
+    protected void Page_PreInit(Object sender, EventArgs e)
+    {
+        if (Session["ID"] != null)
+            this.MasterPageFile = "~/SiteLogado.master";
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        if (Session["Usuario"] == null)
+            Response.Redirect("~/Default");
+        if ((string)Session["Usuario"] != "Paciente")
+            Response.Redirect("~/" + Session["Usuario"]);
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)

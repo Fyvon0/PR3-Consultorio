@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Paciente.aspx.cs" Inherits="Paciente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-	<asp:Menu ID="Menu2" runat="server" StaticSubMenuIndent="16px" Orientation="Horizontal" DynamicHorizontalOffset="10" RenderingMode="List">
+    <asp:Menu ID="Menu2" runat="server" StaticSubMenuIndent="16px" Orientation="Horizontal" DynamicHorizontalOffset="10" RenderingMode="List">
         <DynamicItemTemplate>
             <%# Eval("Text") %>
         </DynamicItemTemplate>

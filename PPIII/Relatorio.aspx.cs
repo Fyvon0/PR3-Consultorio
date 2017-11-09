@@ -16,6 +16,17 @@ public partial class relatoriocerto : System.Web.UI.Page
         getCanceladasMes();
         getaEspecialidadeDiaria();
         getConsultaPaciente();
+
+        if (Session["Usuario"] == null)
+            Response.Redirect("~/Default");
+        if ((string)Session["Usuario"] != "Secretaria")
+            Response.Redirect("~/" + Session["Usuario"]);
+    }
+
+    protected void Page_PreInit(Object sender, EventArgs e)
+    {
+        if (Session["ID"] != null)
+            this.MasterPageFile = "~/SiteLogado.master";
     }
 
     private void getConsultaMedico()
