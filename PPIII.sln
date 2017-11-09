@@ -7,21 +7,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PPIII(2)", "PPIII\", "{5F49
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_1549"
-		Debug.AspNetCompiler.PhysicalPath = "PPIII\"
+		Debug.AspNetCompiler.PhysicalPath = "F:\PR3-Consultorio\PPIII\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1549\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_1549"
-		Release.AspNetCompiler.PhysicalPath = "PPIII\"
+		Release.AspNetCompiler.PhysicalPath = "F:\PR3-Consultorio\PPIII\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1549\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "1549"
-		SlnRelativePath = "PPIII\"
 	EndProjectSection
 EndProject
 Global

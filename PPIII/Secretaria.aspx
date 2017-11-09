@@ -13,9 +13,9 @@
     <asp:Menu ID="Menu1" runat="server">
         <Items>
             <asp:MenuItem Text="Cadastrar Médico" Value="1" NavigateUrl="~/CadastroMedico.aspx"></asp:MenuItem>
-            <asp:MenuItem Text="Cadastrar Especialidade Médica" Value="2"></asp:MenuItem>
-            <asp:MenuItem Text="Cadastrar Secretária" Value="3"></asp:MenuItem>
-            <asp:MenuItem Text="Agendar Consulta" Value="4"></asp:MenuItem>
+            <asp:MenuItem Text="Cadastrar Especialidade Médica" Value="2" NavigateUrl="~/CadastrarEspecialidade.aspx"></asp:MenuItem>
+            <asp:MenuItem Text="Cadastrar Secretária" Value="3" NavigateUrl="~/CadastrarSecretaria.aspx"></asp:MenuItem>
+            <asp:MenuItem Text="Ver Consultas" Value="Ver Consultas" NavigateUrl="~/VerConsultasSec.aspx"></asp:MenuItem>
         </Items>
     </asp:Menu>
 </asp:Content>

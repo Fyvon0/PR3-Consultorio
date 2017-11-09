@@ -21,7 +21,8 @@
         Celular:
         <asp:TextBox ID="txtCelSec" runat="server" MaxLength="14" ToolTip="Telefone móvel no formato (XX)XXXXX-XXXX" Width="203px"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCelSec" ErrorMessage="Favor inserir o celular da secretaria" Display="Dynamic" ValidationGroup="Verificacao"><img src="Resources/erro.png"/></asp:RequiredFieldValidator>
-        &nbsp;&nbsp;&nbsp;</p>
+        &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtCelSec" Display="Dynamic" ErrorMessage="Inserir um formato válido de celular: (XX)XXXXX-XXXX" ValidationExpression="^\([1-9]{2}\)(9[1-9])[0-9]{3}\-[0-9]{4}$" ValidationGroup="Verificacao"><img src="Resources/erro.png" /></asp:RegularExpressionValidator>
+        &nbsp;&nbsp;</p>
     <p>
         &nbsp;</p>
     <p>

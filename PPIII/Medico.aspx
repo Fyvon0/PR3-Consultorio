@@ -7,7 +7,7 @@
         </DynamicItemTemplate>
         <Items>
             <asp:MenuItem Text="Relatar Consulta" Value="Relatar Consulta" NavigateUrl="~/MedicoRelatarConsulta.aspx"></asp:MenuItem>
-            <asp:MenuItem Text="Ver Consultas Marcadas" Value="Ver Consultas Marcadas"></asp:MenuItem>
+            <asp:MenuItem Text="Ver Consultas Marcadas" Value="Ver Consultas Marcadas" NavigateUrl="~/VerConsultas.aspx"></asp:MenuItem>
         </Items>
         <StaticMenuItemStyle HorizontalPadding="10px" />
     </asp:Menu>
