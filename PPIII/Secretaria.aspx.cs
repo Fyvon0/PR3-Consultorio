@@ -25,7 +25,7 @@ public partial class Secretaria : System.Web.UI.Page
 
         string cs = WebConfigurationManager.ConnectionStrings["PRII16164ConnectionString"].ConnectionString;
         SqlConnection conexao = new SqlConnection(cs);
-        SqlCommand comando = new SqlCommand("SELECT nome, email, celular FROM pp3_Secretaria WHERE idEspecialidade = " + Session["ID"], conexao);
+        SqlCommand comando = new SqlCommand("SELECT nome, email, celular FROM pp3_Secretaria WHERE idSecretaria = " + Session["ID"], conexao);
         conexao.Open();
         byte[] imagem;
         SqlDataReader leitor = comando.ExecuteReader();
@@ -36,5 +36,11 @@ public partial class Secretaria : System.Web.UI.Page
             lblCel.Text = leitor.GetString(2);
         }
         conexao.Close();
+    }
+
+    protected void btnDeslogar_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("~/Default");
     }
 }

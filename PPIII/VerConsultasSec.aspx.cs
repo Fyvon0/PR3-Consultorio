@@ -96,7 +96,7 @@ public partial class VerConsultasSec : System.Web.UI.Page
 
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
-                    if (GridView1.Rows[i].Cells[4].Text == "CANCELADA")
+                    if (GridView1.Rows[i].Cells[3].Text == "CANCELADA")
                     {
                         GridView1.Rows[i].BackColor = Color.Red;
                     }
