@@ -9,6 +9,7 @@
             <asp:MenuItem Text="Marcar Consulta" Value="Marcar Consulta" NavigateUrl="~/PacienteMarcarConsulta.aspx"></asp:MenuItem>
             <asp:MenuItem NavigateUrl="~/PacienteCancelarConsulta.aspx" Text="Cancelar Consulta" Value="Cancelar Consulta"></asp:MenuItem>
             <asp:MenuItem Text="Avaliar Última Consulta" Value="Avaliar Última Consulta" NavigateUrl="~/PacienteAvaliarConsulta.aspx"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/VerConsultasPac.aspx" Text="Ver Consultas" Value="Ver Consultas"></asp:MenuItem>
         </Items>
         <StaticMenuItemStyle HorizontalPadding="10px" />
     </asp:Menu>
